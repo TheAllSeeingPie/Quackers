@@ -9,3 +9,11 @@ int castAsInt = instance; //1
 string castAsString = instance; //"Hello world!"
 instance.ToLongDateString(); //Whatever DateTime.Now.ToLongDateString() returns :)
 ```
+I'm sure you're asking: "Yeah but, if you cast it to string, how to do then cast it to something else?". Well there's some methods for finding the original DuckType again:
+
+```
+dynamic instance = DuckTypeFactory.CreateInstance("Hello world!", 1, DateTime.Now);
+string castAsString = instance; //"Hello world!"
+dynamic foundInstance = DuckTypeFactory.FindInstance(castAsString);
+int castAsInt = foundInstance; //1 - WOO!
+```
