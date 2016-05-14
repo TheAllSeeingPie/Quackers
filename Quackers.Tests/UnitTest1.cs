@@ -39,7 +39,7 @@ namespace SafeTypes.Tests
         }
 
         [TestMethod]
-        public void Create_two_instances_and_hope_that_string_equality_doesnt_trump_object_equality()
+        public void Ensure_finding_instances_gets_correct_reference()
         {
             dynamic subject = DuckTypeFactory.CreateInstance(new HelloWorld(), new GoodbyeWorld(), new A());
             dynamic subject2 = DuckTypeFactory.CreateInstance(new HelloWorld(), new GoodbyeWorld(), new B());
@@ -80,16 +80,6 @@ namespace SafeTypes.Tests
             var wr2 = GCHandle.Alloc(h2, GCHandleType.Pinned);
 
             Assert.AreNotEqual(wr1.AddrOfPinnedObject(), wr2.AddrOfPinnedObject());
-        }
-
-        public int PassThrough(int i)
-        {
-            return i;
-        }
-        
-        public IHelloWorld PassThroughIHelloWorld(IHelloWorld helloWorld)
-        {
-            return helloWorld;
         }
     }
 }
