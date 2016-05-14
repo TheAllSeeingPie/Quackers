@@ -15,6 +15,8 @@ namespace Quackers
 
         public DuckTypingDynamic(params object[] objects)
         {
+            if(objects.Any(o => o is string || o.GetType().IsValueType)) throw new ArgumentException("No strings or structs allowed!");
+
             _objectsInfo = objects.ToDictionary(k => k.GetType(), v => v);
         }
 

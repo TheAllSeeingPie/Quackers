@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Quackers
 {
@@ -16,7 +18,7 @@ namespace Quackers
 
         public static dynamic FindInstance(object instance)
         {
-            return _instances.SingleOrDefault(i => i.Instances.Contains(instance));
+            return _instances.FirstOrDefault(i => i.Instances.Any(inst => instance == inst));
         }
     }
 }
