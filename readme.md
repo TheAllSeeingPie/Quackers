@@ -4,16 +4,19 @@ Another one of those "I've had a weird idea but I'm gonna write it anyway projec
 
 ## Usage:
 ```
-dynamic instance = DuckTypeFactory.CreateInstance(1, DateTime.Now);
-int castAsInt = instance; //1
-instance.ToLongDateString(); //Whatever DateTime.Now.ToLongDateString() returns :)
+dynamic instance = DuckTypeFactory.CreateInstance(new HelloWorld(), new GoodbyeWorld());
+IHelloWorld helloWorld = instance;
+helloWorld.Hello(); //"Hello world!"
+IGoodbyeWorld goodbyeWorld = instance;
+goodbyeWorld.Goodbye(); //"Goodbye world!"
 ```
 I'm sure you're asking: "Yeah but, if you cast it to string, how to do then cast it to something else?". Well there's some methods for finding the original DuckType again:
 
 ```
-dynamic instance = DuckTypeFactory.CreateInstance(new Something(), 1, DateTime.Now);
-ISomething castAsString = instance;
-dynamic foundInstance = DuckTypeFactory.FindInstance(castAsString);
-int castAsInt = foundInstance; //1 - WOO!
+dynamic instance = DuckTypeFactory.CreateInstance(new Something(), new SomethingElse());
+ISomething something = instance;
+dynamic foundInstance = DuckTypeFactory.FindInstance(something);
+SomethingElse somethingElse = foundInstance;
+somethingElse.Speak(); //"Something else"
 ```
-Unfortunately due to the .net framework being "highly optimised" it means that you can't duck type strings. Sorry about that ...
+Unfortunately due to the .net framework being "highly optimised" it means that you can't duck type strings. Also because structs are passed by value they aren't able to be tracked back via reference. Sorry about that ...
