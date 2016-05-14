@@ -20,5 +20,14 @@ namespace Quackers
         {
             return _instances.FirstOrDefault(i => i.Instances.Any(inst => instance == inst));
         }
+
+        public static void ReleaseInstance(object instance)
+        {
+            var removeMe = _instances.FirstOrDefault(i => i == instance);
+            if (removeMe != null)
+            {
+                _instances.Remove(removeMe);
+            }
+        }
     }
 }
